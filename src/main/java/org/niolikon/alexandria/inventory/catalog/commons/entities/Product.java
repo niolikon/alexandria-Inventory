@@ -46,15 +46,16 @@ public class Product implements Persistable<Long> {
 	@Column(name = "label")
 	private String label;
 	
-	@Column(name = "image")
-	private String image;
-	
 	@Column(name = "price")
 	private BigDecimal price;
 	
 	@OneToMany(mappedBy="product", cascade=CascadeType.REMOVE)
 	@EqualsAndHashCode.Exclude
 	Set<Packet> packets;
+
+	@OneToMany(mappedBy="product", cascade=CascadeType.REMOVE)
+	@EqualsAndHashCode.Exclude
+	Set<Image> images;
 	
 	@Override
 	public boolean isNew() {

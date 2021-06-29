@@ -1,5 +1,8 @@
 package org.niolikon.alexandria.inventory.catalog.book.converter;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.niolikon.alexandria.inventory.catalog.book.dto.BookView;
 import org.niolikon.alexandria.inventory.catalog.book.entities.Book;
 import org.niolikon.alexandria.inventory.catalog.commons.converter.CompanyToCompanyViewConverter;
@@ -28,8 +31,17 @@ public class BookToBookViewConverter implements Converter<Book, BookView> {
         view.setAuthor(authorConverter.convert(source.getAuthor()));
         view.setPublisher(publisherConverter.convert(source.getPublisher()));
         view.setLabel(source.getLabel());
-        view.setImage(source.getImage());
         view.setPrice(source.getPrice());
+        
+        if ( source.getImages() == null) {
+        	view.setImageIds( List.of());
+        }
+        else {
+            view.setImageIds( source.getImages().stream()
+            					.map( image -> image.getId())
+            					.collect(Collectors.toList()) );
+        }
+        
         return view;
     }
     

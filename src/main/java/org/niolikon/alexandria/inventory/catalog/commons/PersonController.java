@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +46,7 @@ public class PersonController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "The Person has been fetched"),
             @ApiResponse(code = 404, message = "Could not find the specified Person")})
+    @CrossOrigin(origins = "http://localhost:4200")
     public PersonView getPerson(@ApiParam("The ID of the Person") @PathVariable Long id) {
         return service.getPerson(id);
     }
@@ -56,6 +58,7 @@ public class PersonController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "The Persons have been fetched"),
             @ApiResponse(code = 404, message = "No Persons are present in the repository")})
+    @CrossOrigin(origins = "http://localhost:4200")
     public Page<PersonView> getAllPersons(@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
         return service.findAllPersons(pageable);
     }
@@ -70,6 +73,7 @@ public class PersonController {
             @ApiResponse(code = 409, message = "Could not complete the storage, the input Person data would cause duplication"),
             @ApiResponse(code = 403, message = "You are not authorized to access this resource"),
             @ApiResponse(code = 401, message = "You are not logged in") })
+    @CrossOrigin(origins = "http://localhost:4200")
     public PersonView create(@ApiParam("The input Person data") @RequestBody @Valid PersonRequest req) {
         return service.create(req);
     }
@@ -83,6 +87,7 @@ public class PersonController {
             @ApiResponse(code = 404, message = "Could not find the specified Person"),
             @ApiResponse(code = 403, message = "You are not authorized to access this resource"),
             @ApiResponse(code = 401, message = "You are not logged in") })
+    @CrossOrigin(origins = "http://localhost:4200")
     public void deletePerson(@ApiParam("The ID of the Person") @PathVariable Long id) {
         service.delete(id);
     }
@@ -96,6 +101,7 @@ public class PersonController {
             @ApiResponse(code = 409, message = "Could not complete the modification, the input Person data would cause duplication"),
             @ApiResponse(code = 403, message = "You are not authorized to access this resource"),
             @ApiResponse(code = 401, message = "You are not logged in") })
+    @CrossOrigin(origins = "http://localhost:4200")
     public PersonView updatePerson(@ApiParam("The ID of the Person") @PathVariable Long id,
             @ApiParam("The input Person data") @RequestBody @Valid PersonRequest req) {
         Person Person = service.findPersonOrThrow(id);

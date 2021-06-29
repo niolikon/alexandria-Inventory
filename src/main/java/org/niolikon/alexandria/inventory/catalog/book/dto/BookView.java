@@ -1,6 +1,7 @@
 package org.niolikon.alexandria.inventory.catalog.book.dto;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.niolikon.alexandria.inventory.catalog.commons.dto.CompanyView;
 import org.niolikon.alexandria.inventory.catalog.commons.dto.PersonView;
@@ -28,8 +29,8 @@ public class BookView {
 	
 	private String label;
 	
-	private String image;
-	
 	private BigDecimal price;
+	
+	private List<Long> imageIds;
 	
 }

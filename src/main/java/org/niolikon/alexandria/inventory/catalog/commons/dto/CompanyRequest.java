@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotEmpty;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@Data
 public class CompanyRequest implements Serializable {
     
     /** Serial Version ID */
@@ -12,12 +17,4 @@ public class CompanyRequest implements Serializable {
     @NotEmpty
     private String name;
     
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

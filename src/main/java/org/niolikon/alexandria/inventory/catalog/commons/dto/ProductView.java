@@ -1,6 +1,7 @@
 package org.niolikon.alexandria.inventory.catalog.commons.dto;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,8 +18,10 @@ public class ProductView {
 	
 	private String label;
 	
-	private String image;
-	
 	private BigDecimal price;
+	
+	private List<Long> imageIds;
+	
+	private String type;
 
 }

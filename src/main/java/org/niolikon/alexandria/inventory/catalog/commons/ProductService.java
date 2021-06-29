@@ -85,7 +85,6 @@ public class ProductService {
         product.setName(req.getName());
         product.setDescription(req.getDescription());
         product.setLabel(req.getLabel());
-        product.setImage(req.getImage());
         product.setPrice(req.getPrice());
         return product;
     }

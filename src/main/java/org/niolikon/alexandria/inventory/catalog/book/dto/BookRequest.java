@@ -38,9 +38,6 @@ public class BookRequest implements Serializable {
 	private String label;
 
     @NotEmpty
-	private String image;
-
-    @NotEmpty
 	private BigDecimal price;
     
 }

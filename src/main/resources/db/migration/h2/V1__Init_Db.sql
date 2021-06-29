@@ -5,6 +5,8 @@
 DROP TABLE company IF EXISTS;
 DROP TABLE person IF EXISTS;
 DROP TABLE product IF EXISTS;
+DROP TABLE image IF EXISTS;
+DROP TABLE packet IF EXISTS;
 
 -- --------------------------------------------------------
 -- Structure of table company
@@ -44,7 +46,6 @@ CREATE TABLE product (
   name 			VARCHAR(100),
   description 	VARCHAR,
   label 		VARCHAR,
-  image 		VARCHAR(40),
   price			DECIMAL(20,2),
   type			VARCHAR(10)
 );
@@ -54,6 +55,22 @@ CREATE INDEX product_description ON product (description);
 
 ALTER TABLE product ADD CONSTRAINT product_unicity
 UNIQUE(name);
+
+
+-- --------------------------------------------------------
+-- Structure of table image
+-- --------------------------------------------------------
+
+CREATE TABLE image (
+  id 			INTEGER IDENTITY 	PRIMARY KEY,
+  mimetype		VARCHAR(100),
+  data 			BLOB,
+  product_id	INTEGER
+);
+
+ALTER TABLE image ADD CONSTRAINT image_product_fk 
+FOREIGN KEY (product_id) REFERENCES product (id)
+ON DELETE CASCADE;
 
 
 -- --------------------------------------------------------

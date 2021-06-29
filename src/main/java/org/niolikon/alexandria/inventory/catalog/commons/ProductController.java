@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +46,7 @@ public class ProductController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "The Product has been fetched"),
             @ApiResponse(code = 404, message = "Could not find the specified Product")})
+    @CrossOrigin(origins = "http://localhost:4200")
     public ProductView getProduct(@ApiParam("The ID of the Product") @PathVariable Long id) {
         return service.getProduct(id);
     }
@@ -56,6 +58,7 @@ public class ProductController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "The Products have been fetched"),
             @ApiResponse(code = 404, message = "No Products are present in the repository")})
+    @CrossOrigin(origins = "http://localhost:4200")
     public Page<ProductView> getAllProducts(@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
         return service.findAllProducts(pageable);
     }
@@ -70,6 +73,7 @@ public class ProductController {
             @ApiResponse(code = 409, message = "Could not complete the storage, the input Product data would cause duplication"),
             @ApiResponse(code = 403, message = "You are not authorized to access this resource"),
             @ApiResponse(code = 401, message = "You are not logged in") })
+    @CrossOrigin(origins = "http://localhost:4200")
     public ProductView create(@ApiParam("The input Product data") @RequestBody @Valid ProductRequest req) {
         return service.create(req);
     }
@@ -83,6 +87,7 @@ public class ProductController {
             @ApiResponse(code = 404, message = "Could not find the specified Product"),
             @ApiResponse(code = 403, message = "You are not authorized to access this resource"),
             @ApiResponse(code = 401, message = "You are not logged in") })
+    @CrossOrigin(origins = "http://localhost:4200")
     public void deleteProduct(@ApiParam("The ID of the Product") @PathVariable Long id) {
         service.delete(id);
     }
@@ -96,6 +101,7 @@ public class ProductController {
             @ApiResponse(code = 409, message = "Could not complete the modification, the input Product data would cause duplication"),
             @ApiResponse(code = 403, message = "You are not authorized to access this resource"),
             @ApiResponse(code = 401, message = "You are not logged in") })
+    @CrossOrigin(origins = "http://localhost:4200")
     public ProductView updateProduct(@ApiParam("The ID of the Product") @PathVariable Long id,
             @ApiParam("The input Product data") @RequestBody @Valid ProductRequest req) {
         Product product = service.findProductOrThrow(id);

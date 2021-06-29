@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,6 +48,7 @@ public class CompanyController {
             @ApiResponse(code = 404, message = "Could not find the specified Company"),
             @ApiResponse(code = 403, message = "You are not authorized to access this resource"),
             @ApiResponse(code = 401, message = "You are not logged in") })
+    @CrossOrigin(origins = "http://localhost:4200")
     public CompanyView getCompany(@ApiParam("The ID of the Company") @PathVariable Long id) {
         return service.getCompany(id);
     }
@@ -60,6 +62,7 @@ public class CompanyController {
             @ApiResponse(code = 404, message = "No Companys are present in the repository"),
             @ApiResponse(code = 403, message = "You are not authorized to access this resource"),
             @ApiResponse(code = 401, message = "You are not logged in") })
+    @CrossOrigin(origins = "http://localhost:4200")
     public Page<CompanyView> getAllCompanies(@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
         return service.findAllcompanies(pageable);
     }
@@ -74,6 +77,7 @@ public class CompanyController {
             @ApiResponse(code = 409, message = "Could not complete the storage, the input Company data would cause duplication"),
             @ApiResponse(code = 403, message = "You are not authorized to access this resource"),
             @ApiResponse(code = 401, message = "You are not logged in") })
+    @CrossOrigin(origins = "http://localhost:4200")
     public CompanyView create(@ApiParam("The input Company data") @RequestBody @Valid CompanyRequest req) {
         return service.create(req);
     }
@@ -87,6 +91,7 @@ public class CompanyController {
             @ApiResponse(code = 404, message = "Could not find the specified Company"),
             @ApiResponse(code = 403, message = "You are not authorized to access this resource"),
             @ApiResponse(code = 401, message = "You are not logged in") })
+    @CrossOrigin(origins = "http://localhost:4200")
     public void deleteCompany(@ApiParam("The ID of the Company") @PathVariable Long id) {
         service.delete(id);
     }
@@ -100,6 +105,7 @@ public class CompanyController {
             @ApiResponse(code = 409, message = "Could not complete the modification, the input Company data would cause duplication"),
             @ApiResponse(code = 403, message = "You are not authorized to access this resource"),
             @ApiResponse(code = 401, message = "You are not logged in") })
+    @CrossOrigin(origins = "http://localhost:4200")
     public CompanyView updateCompany(@ApiParam("The ID of the Company") @PathVariable Long id,
             @ApiParam("The input Company data") @RequestBody @Valid CompanyRequest req) {
         Company company = service.findCompanyOrThrow(id);

@@ -55,6 +55,9 @@ public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/products/**").hasAnyAuthority("ROLE_OPERATOR", "ROLE_ADMIN")
             .antMatchers("/products").hasAnyAuthority("ROLE_OPERATOR", "ROLE_ADMIN")
             
+            .antMatchers("/images/**").hasAnyAuthority("ROLE_OPERATOR", "ROLE_ADMIN")
+            .antMatchers("/images").hasAnyAuthority("ROLE_OPERATOR", "ROLE_ADMIN")
+            
             .antMatchers("/packets/**").hasAnyAuthority("ROLE_OPERATOR", "ROLE_ADMIN")
             .antMatchers("/packets").hasAnyAuthority("ROLE_OPERATOR", "ROLE_ADMIN")
 
@@ -85,8 +88,8 @@ public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.GET, "/products/**")
             .antMatchers(HttpMethod.GET, "/products")
             
-            .antMatchers(HttpMethod.GET, "/packets/**")
-            .antMatchers(HttpMethod.GET, "/packets")
+            .antMatchers(HttpMethod.GET, "/images/**")
+            .antMatchers(HttpMethod.GET, "/images")
             
             .antMatchers(HttpMethod.GET, "/books/**")
             .antMatchers(HttpMethod.GET, "/books");

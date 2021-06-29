@@ -98,7 +98,6 @@ public class BookService {
         book.setAuthor(authorRepo.getById(req.getAuthorId()));
         book.setPublisher(publisherRepo.getById(req.getPublisherId()));
         book.setLabel(req.getLabel());
-        book.setImage(req.getImage());
         book.setPrice(req.getPrice());
         return book;
     }
