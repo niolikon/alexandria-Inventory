@@ -1,7 +1,8 @@
 package org.niolikon.alexandria.inventory.catalog.commons;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -45,12 +46,22 @@ public class ProductService {
     }
 
     public Page<ProductView> findAllProducts(Pageable pageable) {
-        Page<Product> products = productRepo.findAll(pageable);
-        List<ProductView> productViews = new ArrayList<>();
-        products.forEach(product -> {
-            ProductView productView = productConverter.convert(product);
-            productViews.add(productView);
-        });
+        return this.findAllProductsMatching(Optional.empty(), pageable);
+    }
+
+    public Page<ProductView> findAllProductsMatching(Optional<String> search, Pageable pageable) {
+    	Page<Product> products;
+    	if (search.isPresent()) {
+    		products = productRepo.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(search.get(), search.get(), pageable);
+    	} 
+    	else {
+    		products = productRepo.findAll(pageable);
+    	}
+    	
+        List<ProductView> productViews = products.stream()
+        		.map( product -> productConverter.convert(product))
+        		.collect(Collectors.toList());
+        
         return new PageImpl<>(productViews, pageable, products.getTotalElements());
     }
     
