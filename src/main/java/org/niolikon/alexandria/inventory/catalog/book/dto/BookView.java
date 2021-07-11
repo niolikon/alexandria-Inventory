@@ -33,4 +33,6 @@ public class BookView {
 	
 	private List<Long> imageIds;
 	
+	private long availability;
+	
 }
