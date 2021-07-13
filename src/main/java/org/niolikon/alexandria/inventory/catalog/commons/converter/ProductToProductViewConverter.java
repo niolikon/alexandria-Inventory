@@ -38,6 +38,15 @@ public class ProductToProductViewConverter  implements Converter<Product, Produc
         	view.setType("");
         }
         
+        if ( source.getPackets() == null) {
+        	view.setAvailability(0);
+        }
+        else {
+        	view.setAvailability( source.getPackets().stream()
+									.filter(packet -> (packet.getOrderId() == null))
+        							.count() );
+        }
+        
         return view;
     }
 
