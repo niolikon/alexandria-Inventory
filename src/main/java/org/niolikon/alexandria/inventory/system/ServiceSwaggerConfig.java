@@ -46,7 +46,7 @@ public class ServiceSwaggerConfig {
         return new ApiInfoBuilder()
                 .title("Alexandria-Inventory")
                 .description("A RESTFul service for the management of an Inventory")
-                .version("0.0.0-A02")
+                .version("0.0.0-A04")
                 .license("MIT License")
                 .licenseUrl("https://github.com/niolikon/alexandria-Inventory/blob/main/LICENSE")
                 .contact(new Contact("Simone Andrea Muscas",  "https://www.linkedin.com/in/simoneandreamuscas/", 
