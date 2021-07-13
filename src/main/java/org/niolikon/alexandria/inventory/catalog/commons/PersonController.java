@@ -1,5 +1,7 @@
 package org.niolikon.alexandria.inventory.catalog.commons;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.niolikon.alexandria.inventory.catalog.commons.dto.PersonRequest;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,13 +57,14 @@ public class PersonController {
     @GetMapping
     @ResponseBody
     @ApiOperation(
-            value = "Read all Persons", notes = "Returns Person data in JSON", produces = "application/json")
+            value = "Search Persons", notes = "Returns Person data in JSON", produces = "application/json")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "The Persons have been fetched"),
             @ApiResponse(code = 404, message = "No Persons are present in the repository")})
     @CrossOrigin(origins = "http://localhost:4200")
-    public Page<PersonView> getAllPersons(@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        return service.findAllPersons(pageable);
+    public Page<PersonView> getAllPersons(@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable,
+    		@RequestParam Optional<String> search) {
+        return service.findAllPersonsMatching(search, pageable);
     }
     
     @PostMapping

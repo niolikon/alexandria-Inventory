@@ -1,5 +1,7 @@
 package org.niolikon.alexandria.inventory.catalog.book;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.niolikon.alexandria.inventory.catalog.book.dto.BookRequest;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,15 +59,16 @@ public class BookController {
     @GetMapping
     @ResponseBody
     @ApiOperation(
-            value = "Read all books", notes = "Returns Book data in JSON", produces = "application/json")
+            value = "Search books", notes = "Returns Book data in JSON", produces = "application/json")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "The Books have been fetched"),
             @ApiResponse(code = 404, message = "No Books are present in the repository"),
             @ApiResponse(code = 403, message = "You are not authorized to access this resource"),
             @ApiResponse(code = 401, message = "You are not logged in") })
     @CrossOrigin(origins = "http://localhost:4200")
-    public Page<BookView> getAllBooks(@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        return service.findAllBooks(pageable);
+    public Page<BookView> getAllBooks(@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable,
+    		@RequestParam Optional<String> search) {
+        return service.findAllBooksMatching(search, pageable);
     }
     
     @PostMapping
