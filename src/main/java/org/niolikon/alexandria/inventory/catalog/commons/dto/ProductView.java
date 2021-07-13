@@ -23,5 +23,7 @@ public class ProductView {
 	private List<Long> imageIds;
 	
 	private String type;
+	
+	private long availability;
 
 }

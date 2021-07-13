@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org.niolikon.alexandria</groupId>
 	<artifactId>Inventory</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.0-A02</version>
 	<packaging>jar</packaging>
 	<name>alexandria-Inventory</name>
 	<description>Spring Inventory Management Backend (Case Study)</description>
@@ -54,6 +54,10 @@
 	      <artifactId>h2</artifactId>
 	      <scope>runtime</scope>
 	    </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>

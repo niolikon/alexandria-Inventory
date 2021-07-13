@@ -1,7 +1,8 @@
 package org.niolikon.alexandria.inventory.catalog.commons;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -45,13 +46,23 @@ public class CompanyService {
     }
     
     public Page<CompanyView> findAllcompanies(Pageable pageable) {
-        Page<Company> companys = companyRepo.findAll(pageable);
-        List<CompanyView> companyViews = new ArrayList<>();
-        companys.forEach(company -> {
-            CompanyView companyView = companyConverter.convert(company);
-            companyViews.add(companyView);
-        });
-        return new PageImpl<>(companyViews, pageable, companys.getTotalElements());
+        return this.findAllcompaniesMatching(Optional.empty(), pageable);
+    }
+    
+    public Page<CompanyView> findAllcompaniesMatching(Optional<String> search, Pageable pageable) {
+        Page<Company> companies;
+    	if (search.isPresent()) {
+    		companies = companyRepo.findByNameContainingIgnoreCase(search.get(), pageable);
+    	} 
+    	else {
+    		companies = companyRepo.findAll(pageable);
+    	}
+        
+        List<CompanyView> companyViews = companies.stream()
+        		.map( company -> companyConverter.convert(company))
+        		.collect(Collectors.toList());
+        
+        return new PageImpl<>(companyViews, pageable, companies.getTotalElements());
     }
     
     public CompanyView create(CompanyRequest req) {

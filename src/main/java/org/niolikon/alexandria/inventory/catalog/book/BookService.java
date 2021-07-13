@@ -2,6 +2,8 @@ package org.niolikon.alexandria.inventory.catalog.book;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -53,12 +55,22 @@ public class BookService {
     }
 
     public Page<BookView> findAllBooks(Pageable pageable) {
-        Page<Book> books = bookRepo.findAll(pageable);
-        List<BookView> bookViews = new ArrayList<>();
-        books.forEach( book -> {
-            BookView bookView = bookConverter.convert(book);
-            bookViews.add(bookView);
-        });
+        return this.findAllBooksMatching(Optional.empty(), pageable);
+    }
+
+    public Page<BookView> findAllBooksMatching(Optional<String> search, Pageable pageable) {
+        Page<Book> books;
+        if (search.isPresent()) {
+        	books = bookRepo.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCaseOrIsbnEquals(search.get(), search.get(), search.get(), pageable);
+        }
+        else {
+        	books = bookRepo.findAll(pageable);
+        }
+        
+        List<BookView> bookViews = books.stream()
+        		.map( book -> bookConverter.convert(book))
+        		.collect(Collectors.toList());
+        
         return new PageImpl<>(bookViews, pageable, books.getTotalElements());
     }
     

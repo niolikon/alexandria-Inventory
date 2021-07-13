@@ -1,7 +1,8 @@
 package org.niolikon.alexandria.inventory.catalog.commons;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -45,12 +46,22 @@ public class PersonService {
     }
 
     public Page<PersonView> findAllPersons(Pageable pageable) {
-        Page<Person> persons = personRepo.findAll(pageable);
-        List<PersonView> personViews = new ArrayList<>();
-        persons.forEach(person -> {
-            PersonView personView = personConverter.convert(person);
-            personViews.add(personView);
-        });
+    	return this.findAllPersonsMatching(Optional.empty(), pageable);
+    }
+
+    public Page<PersonView> findAllPersonsMatching(Optional<String> search, Pageable pageable) {
+        Page<Person> persons;
+        if (search.isPresent()) {
+        	persons = personRepo.findByNameContainingIgnoreCaseOrSurnameContainingIgnoreCase(search.get(), search.get(), pageable);
+        } 
+        else {
+        	persons = personRepo.findAll(pageable);
+        }
+        
+        List<PersonView> personViews = persons.stream()
+        		.map( person -> personConverter.convert(person))
+        		.collect(Collectors.toList());
+        
         return new PageImpl<>(personViews, pageable, persons.getTotalElements());
     }
     
