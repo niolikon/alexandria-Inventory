@@ -44,7 +44,7 @@ public class ImageController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "The Image has been fetched"),
             @ApiResponse(code = 404, message = "Could not find the specified Image") })
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:4200", "http://localhost:3100", "http://localhost:3200"})
     public void getImage(@ApiParam("The ID of the Image") @PathVariable Long id, HttpServletResponse res) {
         Image image = service.getDownloadableImage(id);
         
@@ -68,7 +68,7 @@ public class ImageController {
             @ApiResponse(code = 409, message = "Could not complete the storage, the input Image data would cause duplication"),
             @ApiResponse(code = 403, message = "You are not authorized to access this resource"),
             @ApiResponse(code = 401, message = "You are not logged in") })
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:4200", "http://localhost:3100"})
     public ImageView create(@ApiParam("The input Image data") @RequestParam("image") MultipartFile imgFile, 
     		@RequestParam("productId") Long productId) {
         return service.create(imgFile, productId);
@@ -83,7 +83,7 @@ public class ImageController {
             @ApiResponse(code = 404, message = "Could not find the specified Image"),
             @ApiResponse(code = 403, message = "You are not authorized to access this resource"),
             @ApiResponse(code = 401, message = "You are not logged in") })
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:4200", "http://localhost:3100"})
     public void deleteImage(@ApiParam("The ID of the Image") @PathVariable Long id) {
         service.delete(id);
     }

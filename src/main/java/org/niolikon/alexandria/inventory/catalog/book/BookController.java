@@ -51,7 +51,7 @@ public class BookController {
             @ApiResponse(code = 404, message = "Could not find the specified Book"),
             @ApiResponse(code = 403, message = "You are not authorized to access this resource"),
             @ApiResponse(code = 401, message = "You are not logged in") })
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:4200", "http://localhost:3100", "http://localhost:3200"})
     public BookView getBook(@ApiParam("The ID of the Book") @PathVariable Long id) {
         return service.getBook(id);
     }
@@ -65,7 +65,7 @@ public class BookController {
             @ApiResponse(code = 404, message = "No Books are present in the repository"),
             @ApiResponse(code = 403, message = "You are not authorized to access this resource"),
             @ApiResponse(code = 401, message = "You are not logged in") })
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:4200", "http://localhost:3100", "http://localhost:3200"})
     public Page<BookView> getAllBooks(@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable,
     		@RequestParam Optional<String> search) {
         return service.findAllBooksMatching(search, pageable);
@@ -81,7 +81,7 @@ public class BookController {
             @ApiResponse(code = 409, message = "Could not complete the storage, the input Book data would cause duplication"),
             @ApiResponse(code = 403, message = "You are not authorized to access this resource"),
             @ApiResponse(code = 401, message = "You are not logged in") })
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:4200", "http://localhost:3100"})
     public BookView create(@ApiParam("The input Book data") @RequestBody @Valid BookRequest req) {
         return service.create(req);
     }
@@ -95,7 +95,7 @@ public class BookController {
             @ApiResponse(code = 404, message = "Could not find the specified Book"),
             @ApiResponse(code = 403, message = "You are not authorized to access this resource"),
             @ApiResponse(code = 401, message = "You are not logged in") })
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:4200", "http://localhost:3100"})
     public void deleteBook(@ApiParam("The ID of the Book") @PathVariable Long id) {
         service.delete(id);
     }
@@ -109,7 +109,7 @@ public class BookController {
             @ApiResponse(code = 409, message = "Could not complete the modification, the input Book data would cause duplication"),
             @ApiResponse(code = 403, message = "You are not authorized to access this resource"),
             @ApiResponse(code = 401, message = "You are not logged in") })
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:4200", "http://localhost:3100"})
     public BookView updateBook(@ApiParam("The ID of the Book") @PathVariable Long id,
             @ApiParam("The input Book data") @RequestBody @Valid BookRequest req) {
         Book book = service.findBookOrThrow(id);
