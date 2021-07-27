@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org.niolikon.alexandria</groupId>
 	<artifactId>Inventory</artifactId>
-	<version>0.0.0-A04</version>
+	<version>0.0.0-A06</version>
 	<packaging>jar</packaging>
 	<name>alexandria-Inventory</name>
 	<description>Spring Inventory Management Backend (Case Study)</description>
