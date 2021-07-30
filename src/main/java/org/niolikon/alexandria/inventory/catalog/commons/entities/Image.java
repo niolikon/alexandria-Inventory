@@ -12,6 +12,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -31,7 +33,8 @@ public class Image {
 	
 	@Column(name = "data")
 	@Lob
-	private Blob data;
+    @Type(type="org.hibernate.type.BinaryType")
+	private byte[] data;
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable=false, updatable=true)

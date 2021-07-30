@@ -29,4 +29,6 @@ public class ProductRequest implements Serializable {
 
     @NotEmpty
 	private BigDecimal price;
+    
+	private Boolean featured;
 }

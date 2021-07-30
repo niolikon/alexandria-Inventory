@@ -47,6 +47,7 @@ CREATE TABLE product (
   description 	VARCHAR,
   label 		VARCHAR,
   price			DECIMAL(20,2),
+  featured		BOOLEAN DEFAULT FALSE,
   type			VARCHAR(10)
 );
 

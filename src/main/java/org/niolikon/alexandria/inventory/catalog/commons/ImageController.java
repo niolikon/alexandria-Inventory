@@ -1,5 +1,7 @@
 package org.niolikon.alexandria.inventory.catalog.commons;
 
+import java.io.ByteArrayInputStream;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -51,8 +53,8 @@ public class ImageController {
         try {
             res.setStatus(HttpServletResponse.SC_OK);
             res.setContentType(image.getMimetype());
-			res.setContentLength((int) image.getData().length());
-			IOUtils.copy(image.getData().getBinaryStream(), res.getOutputStream());
+			res.setContentLength((int) image.getData().length);
+			IOUtils.copy(new ByteArrayInputStream(image.getData()), res.getOutputStream());
 		} catch (Exception e) {
 			log.warning("Error during stream of image: " + id);
 		}

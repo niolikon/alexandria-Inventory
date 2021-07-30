@@ -53,14 +53,15 @@ public class ImageService {
     public Image getDownloadableImage(Long id) {
     	return findImageOrThrow(id);
     }
-    
+
+    @Transactional
     public ImageView create(MultipartFile file, Long productId) {
         Image image = new Image();
         image.setMimetype(file.getContentType());
         image.setProduct(this.findProductOrThrow(productId));
     	
     	try {
-    		image.setData(new SerialBlob(file.getBytes())); 
+    		image.setData(file.getBytes()); 
     	}
     	catch (Exception _se) {
     		throw new EntityNotProcessableException(messageProvider.getMessage("image.SerializationFail", file.getName()));

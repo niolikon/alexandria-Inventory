@@ -70,6 +70,18 @@ public class BookController {
     		@RequestParam Optional<String> search) {
         return service.findAllBooksMatching(search, pageable);
     }
+
+    @GetMapping("/featured")
+    @ResponseBody
+    @ApiOperation(
+            value = "Read Featured Books", notes = "Returns Books data in JSON", produces = "application/json")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "The Featured Books have been fetched"),
+            @ApiResponse(code = 404, message = "No Books are present in the repository")})
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:4200", "http://localhost:3100", "http://localhost:3200"})
+    public Page<BookView> getFeaturedBooks(@PageableDefault(size = 2) Pageable pageable) {
+        return service.findFeaturedBooks(pageable);
+    }
     
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

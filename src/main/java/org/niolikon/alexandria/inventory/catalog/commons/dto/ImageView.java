@@ -13,6 +13,5 @@ public class ImageView {
 
     private String mimetype;
     
-	private Blob data;
-    
+	private byte[] data;
 }

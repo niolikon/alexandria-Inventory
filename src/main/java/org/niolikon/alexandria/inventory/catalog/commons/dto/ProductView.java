@@ -20,6 +20,8 @@ public class ProductView {
 	
 	private BigDecimal price;
 	
+	private Boolean featured;
+	
 	private List<Long> imageIds;
 	
 	private String type;

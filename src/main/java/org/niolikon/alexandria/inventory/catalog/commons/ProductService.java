@@ -64,6 +64,16 @@ public class ProductService {
         
         return new PageImpl<>(productViews, pageable, products.getTotalElements());
     }
+
+    public Page<ProductView> findFeaturedProducts(Pageable pageable) {
+    	Page<Product> products = productRepo.findByFeaturedTrue(pageable);
+    	
+        List<ProductView> productViews = products.stream()
+        		.map( product -> productConverter.convert(product))
+        		.collect(Collectors.toList());
+        
+        return new PageImpl<>(productViews, pageable, products.getTotalElements());
+    }
     
     public ProductView create(ProductRequest req) {
         Product product = new Product();
@@ -97,6 +107,14 @@ public class ProductService {
         product.setDescription(req.getDescription());
         product.setLabel(req.getLabel());
         product.setPrice(req.getPrice());
+        
+        if (req.getFeatured() == null) {
+        	product.setFeatured(Boolean.FALSE);
+        }
+        else {
+        	product.setFeatured(req.getFeatured());
+        }
+        
         return product;
     }
 }

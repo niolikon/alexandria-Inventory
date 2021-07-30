@@ -20,6 +20,7 @@ public class ProductToProductViewConverter  implements Converter<Product, Produc
         view.setName(source.getName());
         view.setDescription(source.getDescription());
         view.setPrice(source.getPrice());
+        view.setFeatured(source.getFeatured());
         view.setLabel(source.getLabel());
         
         if ( source.getImages() == null) {

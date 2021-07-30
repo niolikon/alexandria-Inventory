@@ -48,6 +48,9 @@ public class Product implements Persistable<Long> {
 	
 	@Column(name = "price")
 	private BigDecimal price;
+
+	@Column(name = "featured")
+	private Boolean featured;
 	
 	@OneToMany(mappedBy="product", cascade=CascadeType.REMOVE)
 	@EqualsAndHashCode.Exclude

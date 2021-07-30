@@ -73,6 +73,16 @@ public class BookService {
         
         return new PageImpl<>(bookViews, pageable, books.getTotalElements());
     }
+
+    public Page<BookView> findFeaturedBooks(Pageable pageable) {
+        Page<Book> books = bookRepo.findByFeaturedTrue(pageable);
+        
+        List<BookView> bookViews = books.stream()
+        		.map( book -> bookConverter.convert(book))
+        		.collect(Collectors.toList());
+        
+        return new PageImpl<>(bookViews, pageable, books.getTotalElements());
+    }
     
     @Transactional
     public BookView create(BookRequest req) {

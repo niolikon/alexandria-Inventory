@@ -66,6 +66,18 @@ public class ProductController {
     		@RequestParam Optional<String> search) {
         return service.findAllProductsMatching(search, pageable);
     }
+
+    @GetMapping("/featured")
+    @ResponseBody
+    @ApiOperation(
+            value = "Read Featured Products", notes = "Returns Product data in JSON", produces = "application/json")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "The Featured Products have been fetched"),
+            @ApiResponse(code = 404, message = "No Products are present in the repository")})
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:4200", "http://localhost:3100", "http://localhost:3200"})
+    public Page<ProductView> getFeaturedProducts(@PageableDefault(size = 2) Pageable pageable) {
+        return service.findFeaturedProducts(pageable);
+    }
     
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
