@@ -40,4 +40,6 @@ public class BookRequest implements Serializable {
     @NotEmpty
 	private BigDecimal price;
     
+	private Boolean featured;
+    
 }

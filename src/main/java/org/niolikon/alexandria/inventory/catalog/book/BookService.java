@@ -121,6 +121,14 @@ public class BookService {
         book.setPublisher(publisherRepo.getById(req.getPublisherId()));
         book.setLabel(req.getLabel());
         book.setPrice(req.getPrice());
+        
+        if (req.getFeatured() == null) {
+        	book.setFeatured(Boolean.FALSE);
+        }
+        else {
+        	book.setFeatured(req.getFeatured());
+        }
+        
         return book;
     }
 }

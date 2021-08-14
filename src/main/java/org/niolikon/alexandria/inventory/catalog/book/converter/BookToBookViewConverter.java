@@ -32,6 +32,7 @@ public class BookToBookViewConverter implements Converter<Book, BookView> {
         view.setPublisher(publisherConverter.convert(source.getPublisher()));
         view.setLabel(source.getLabel());
         view.setPrice(source.getPrice());
+        view.setFeatured(source.getFeatured());
         
         if ( source.getImages() == null) {
         	view.setImageIds( List.of());

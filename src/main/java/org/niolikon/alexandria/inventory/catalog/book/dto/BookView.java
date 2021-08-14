@@ -3,6 +3,8 @@ package org.niolikon.alexandria.inventory.catalog.book.dto;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
+
 import org.niolikon.alexandria.inventory.catalog.commons.dto.CompanyView;
 import org.niolikon.alexandria.inventory.catalog.commons.dto.PersonView;
 
@@ -35,4 +37,5 @@ public class BookView {
 	
 	private long availability;
 	
+	private Boolean featured;
 }
